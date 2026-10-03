@@ -1,0 +1,44 @@
+[
+    {
+        "id": "forms-auth",
+        "nivel": "Iniciante",
+        "titulo": "Autenticação & Validações",
+        "descricao": "Pratique o preenchimento de formulários, captura de mensagens de erro dinâmicas e validação de fluxo de login com sucesso ou falha.",
+        "link": "/sandbox/forms-auth"
+    },
+    {
+        "id": "dynamic-tables",
+        "nivel": "Intermediário",
+        "titulo": "Tabelas Dinâmicas & Delays",
+        "descricao": "Enfrente linhas ordenadas aleatoriamente e elementos que demoram para carregar na tela. Excelente para treinar esperas explícitas.",
+        "link": "/sandbox/dynamic-tables"
+    },
+    {
+        "id": "browser-dialogs",
+        "nivel": "Intermediário",
+        "titulo": "Alertas, Popups & CAPTCHA",
+        "descricao": "Interaja com janelas nativas do navegador, abas externas e resolva um desafio de CAPTCHA lógico baseado em texto.",
+        "link": "/sandbox/browser-dialogs"
+    },
+    {
+        "id": "ui-components",
+        "nivel": "Intermediário",
+        "titulo": "Componentes de Interface",
+        "descricao": "Pratique busca, filtros, formulários, abas, acordeões, modais, notificações, paginação e estados de carregamento em fluxos reais.",
+        "link": "/sandbox/ui-components"
+    },
+    {
+        "id": "calendar-widgets",
+        "nivel": "Intermediário",
+        "titulo": "Calendários & Navegação",
+        "descricao": "Treine seleção de datas e horários, navegação de carrossel com indicadores e avanço por etapas em uma jornada de agendamento.",
+        "link": "/sandbox/calendar-widgets"
+    },
+    {
+        "id": "shadow-dom",
+        "nivel": "Avançado",
+        "titulo": "Desafio Shadow DOM",
+        "descricao": "Elementos encapsulados dentro de uma árvore Shadow DOM separada. Um teste avançado de seletores para o Selenium e Playwright.",
+        "link": "/sandbox/shadow-dom"
+    }
+]

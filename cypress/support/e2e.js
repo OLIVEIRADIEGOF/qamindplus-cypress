@@ -15,6 +15,16 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import BasePage from '../page/base-page'
+
+const page = new BasePage()
+
+before(() => {
+    cy.log('I run before all spec files!')
+    page.visit()
+    page.assertLocation('/')
+    page.assertHeaderAndFooter()
+})
 
 beforeEach(() => {
     cy.log('I run before every test in every spec file!')
@@ -22,4 +32,8 @@ beforeEach(() => {
 
 afterEach(() => {
     cy.log('I run after every test in every spec file!')
+})
+
+after(() => {
+    cy.log('I run after all spec files!')
 })
