@@ -22,15 +22,15 @@ class DemoDashboardPage extends BasePage {
         return cy.get('[data-testid^="challenge-card-"]')
     }
 
-    getCard(id) {
+    getCard(id: string) {
         return cy.get(`[data-testid="challenge-card-${id}"]`)
     }
 
-    getCardLink(id) {
+    getCardLink(id: string) {
         return cy.get(`[data-testid="challenge-link-${id}"]`)
     }
 
-    assertCard(id, nivel, title, description) {
+    assertCard(id: string, nivel: string, title: string, description: string) {
         this.getCard(id)
             .should('be.visible')
             .should('contain.text', nivel)
@@ -38,7 +38,7 @@ class DemoDashboardPage extends BasePage {
             .should('contain.text', description)
     }
 
-    assertCardLink(id, link) {
+    assertCardLink(id: string, link: string) {
         this.getCardLink(id)
             .should('be.visible')
             .should('have.attr', 'href', link)

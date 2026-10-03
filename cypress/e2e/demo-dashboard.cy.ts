@@ -1,5 +1,6 @@
 import BasePage from "../page/base-page"
 import DemoDashboardPage from "../page/demo-dashboard-page"
+import type { ChallengeCard } from '../types/challenge-card'
 
 const page = new BasePage()
 const dashboard = new DemoDashboardPage()
@@ -20,7 +21,7 @@ describe('Demo Dashboard', () => {
     })
 
     it('should display the correct cards', () => {
-        cy.fixture('cards.json').then((cards) => {
+        cy.fixture<ChallengeCard[]>('cards.json').then((cards) => {
             dashboard.getCards().should('have.length', cards.length)
             cards.forEach((card) => {
                 dashboard.assertCard(card.id, card.nivel, card.titulo, card.descricao)
@@ -30,7 +31,7 @@ describe('Demo Dashboard', () => {
     })
 
     it('should navigate to the correct card link', () => {
-        cy.fixture('cards.json').then((cards) => {
+        cy.fixture<ChallengeCard[]>('cards.json').then((cards) => {
             cards.forEach((card) => {
                 dashboard.getCardLink(card.id).click()
                 page.assertLocation(card.link)

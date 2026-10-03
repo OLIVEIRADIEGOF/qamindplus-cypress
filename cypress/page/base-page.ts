@@ -24,7 +24,7 @@ class BasePage {
         return cy.get('[data-testid="footer-text"]')
     }
 
-    assertLocation(path) {
+    assertLocation(path: string) {
         cy.location('pathname').should('eq', path)
     }
 
