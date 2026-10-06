@@ -5,7 +5,7 @@ export default defineConfig({
   video: false,
   retries: {
     runMode: 1,
-    openMode: 0,
+    openMode: 2,
   },
   e2e: {
     baseUrl: 'https://qamindplus.com.br'
