@@ -5,16 +5,16 @@ import type { ChallengeCard } from '../types/challenge-card'
 const page = new BasePage()
 const dashboard = new DemoDashboardPage()
 
-describe('Demo Dashboard', () => {
+describe('Demo Dashboard Page', () => {
 
     beforeEach(() => {
-        cy.log('I run before every test in this spec file!')
+        cy.log('I run before each test in this spec file!')
         dashboard.visit()
         dashboard.assertLocation('/sandbox/demo-dashboard')
         dashboard.assertHeaderAndFooter()
     })
 
-    it('should display the welcome page', () => {
+    it('should display the correct title and description', () => {
         dashboard.getWelcomeTitle().should('contain.text', 'Bem-vindo ao Espaço de Treinamento!')
         dashboard.getWelcomeDescription().should('contain.text', 'Selecione um dos cenários abaixo para rodar seus scripts de automação. Cada laboratório simula problemas e comportamentos reais do mercado para desafiar suas habilidades com Playwright, Cypress, Selenium ou Appium.')
         dashboard.getPlatformStatus().should('contain.text', 'Ambiente Totalmente Client-Side e Resiliente')

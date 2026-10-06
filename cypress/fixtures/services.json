@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "imagem": "/assets/images/service-1.jpg",
+        "titulo": "Nossas Formações",
+        "descricao": "Acesse nossos canais para acompanhar os conteúdos e entre em nosso Grupo VIP do WhatsApp, para obter conteúdo exclusivo e desconto especial em nossos Cursos, liberando seu acesso a Sandbox restrita."
+    },
+    {
+        "id": "2",
+        "imagem": "/assets/images/service-2.jpg",
+        "titulo": "Mentoria Individual",
+        "descricao": "Entre em nosso Grupo VIP do WhatsApp para acompanhar nossas vagas e preencher o formulário de inscrição. Fique atento, pois são poucas vagas."
+    },
+    {
+        "id": "3",
+        "imagem": "/assets/images/service-3.jpg",
+        "titulo": "Sandbox de Laboratórios",
+        "descricao": "Ambiente exclusivo de treinamento."
+    }
+]

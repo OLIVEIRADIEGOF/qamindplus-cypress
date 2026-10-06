@@ -10,11 +10,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run": "cypress run --browser chrome",
     "cy:run:firefox": "cypress run --browser firefox",
     "cy:run:edge": "cypress run --browser edge",
-    "cy:record": "cypress run --browser chrome --record",
-    "cy:record:parallel": "cypress run --parallel --browser chrome --record"
+    "cy:record": "cypress run --browser chrome --record --key $CYPRESS_RECORD_KEY",
+    "cy:parallel": "cypress run --browser chrome --record --key $CYPRESS_RECORD_KEY --parallel"
   }
 }

@@ -16,15 +16,11 @@
 // Import commands.ts using ES2015 syntax:
 import './commands'
 
-import BasePage from '../page/base-page'
-
-const page = new BasePage()
+// TODO add custom commands to support file
 
 before(() => {
-    cy.log('I run before all spec files!')
-    page.visit()
-    page.assertLocation('/')
-    page.assertHeaderAndFooter()
+    cy.log('I run once before all spec files!')
+
 })
 
 beforeEach(() => {
@@ -36,5 +32,5 @@ afterEach(() => {
 })
 
 after(() => {
-    cy.log('I run after all spec files!')
+    cy.log('I run once after all spec files!')
 })
