@@ -24,15 +24,13 @@ jobs:
           record: true
           install: npm install start-server-and-test --save-dev
           start: "my-server -p $EXPOSE_PORT"
-          runTests: "start-server-and-test start https://$EXPOSE_HOST:$EXPOSE_PORT cypress run"
+          runTests: "start-server-and-test start $CYPRESS_BASE_URL cypress run"
           ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
         env:
-          EXPOSE_HOST: ${{ vars.EXPOSE_HOST || 'qamindplus.com.br' }}
-          EXPOSE_PORT: ${{ vars.EXPOSE_PORT || '443' }}
+          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass the Cypress Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}

@@ -17,6 +17,6 @@
     "cy:record": "cypress run --browser chrome --record --key $CYPRESS_RECORD_KEY",
     "cy:parallel": "cypress run --browser chrome --record --key $CYPRESS_RECORD_KEY --parallel",
     "start": "my-server -p 4200",
-    "test": "start-server-and-test start http://localhost:4200 cy:run"
+    "test": "start-server-and-test start $CYPRESS_BASE_URL cy:run"
   }
 }
