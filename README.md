@@ -5,7 +5,7 @@ Projeto de testes E2E com Cypress e TypeScript para validar os laboratórios da 
 ## Requisitos
 
 - Node.js 24.x e npm.
-- Acesso à internet para instalar dependências e executar os testes contra o `baseUrl` configurado em `cypress.config.ts` (`https://qamindplus.com.br`).
+- Acesso à internet para instalar dependências e executar os testes contra o `baseUrl` configurado em `cypress.config.ts`.
 - Para executar os scripts de navegador específico, instale o navegador correspondente. O Cypress também pode usar o Electron incluído.
 
 Confira as versões instaladas:
@@ -94,6 +94,15 @@ npm run cy:run:edge
 ```
 
 Os testes acessam o site remoto configurado em `cypress.config.ts`. Uma falha de rede ou indisponibilidade do site pode causar falhas mesmo que o código do teste esteja correto.
+
+Para executar os testes contra outro ambiente, defina `CYPRESS_BASE_URL` como a URL completa, incluindo protocolo e, se necessário, porta:
+
+```bash
+CYPRESS_BASE_URL=https://staging.example.com npm test
+CYPRESS_BASE_URL=http://localhost:4200 npm test
+```
+
+No GitHub Actions, defina a variável `CYPRESS_BASE_URL` em **Settings → Secrets and variables → Actions → Variables**. O workflow a usa e, se não estiver definida, executa contra `https://qamindplus.com.br`.
 
 ## Padrões e boas práticas
 

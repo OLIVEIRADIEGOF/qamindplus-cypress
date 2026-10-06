@@ -3,10 +3,10 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        # run 3 copies of the current job in parallel
-        recording-job: [1, 2, 3]
+    # strategy:
+    #   matrix:
+    #     # run 3 copies of the current job in parallel
+    #     recording-job: [1, 2, 3]
     container:
       image: cypress/browsers:24.21.0
       options: --user 1001
@@ -22,12 +22,9 @@ jobs:
           browser: chrome
           parallel: true
           record: true
-          install: npm install start-server-and-test --save-dev
-          start: "my-server -p $EXPOSE_PORT"
-          runTests: "start-server-and-test start $CYPRESS_BASE_URL cypress run"
           ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
         env:
-          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
+          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL}}
           # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass the Cypress Cloud record key as an environment variable
