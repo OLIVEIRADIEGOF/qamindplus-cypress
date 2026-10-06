@@ -102,7 +102,7 @@ CYPRESS_BASE_URL=https://staging.example.com npm test
 CYPRESS_BASE_URL=http://localhost:4200 npm test
 ```
 
-No GitHub Actions, defina a variável `CYPRESS_BASE_URL` em **Settings → Secrets and variables → Actions → Variables**. O workflow a usa e, se não estiver definida, executa contra `https://qamindplus.com.br`.
+No GitHub Actions, defina a variável `CYPRESS_BASE_URL` em **Settings → Secrets and variables → Actions → Variables**.
 
 ## Padrões e boas práticas
 
