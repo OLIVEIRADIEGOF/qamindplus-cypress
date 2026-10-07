@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false # Garante que se uma máquina falhar, as outras continuem executando seus testes
       matrix:
-        # containers: [1, 2] # Cria 3 instâncias idênticas deste job (máquinas 1, 2 e 3)
         browser: [chrome, firefox] # Cria 2 instâncias idênticas deste job (uma para cada browser)
+        containers: [1, 2] # Cria 2 instâncias idênticas para cada browser, totalizando 4 containers (2 para Chrome e 2 para Firefox)
     container:
       image: cypress/browsers:24.21.0
       options: --user 1001
@@ -23,7 +23,7 @@ jobs:
       - name: Cypress.io
         uses: cypress-io/github-action@v7.4.6
         with:
-          group: 'Tests on ${{ matrix.browser }}'
+          group: 'Parallel Tests on ${{ matrix.browser }}'
           browser: ${{ matrix.browser }}
 
           parallel: true # Avisa ao Cypress para dividir a carga
