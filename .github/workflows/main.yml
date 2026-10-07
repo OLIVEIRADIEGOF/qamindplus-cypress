@@ -8,6 +8,7 @@ permissions:
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
+    environment: Staging
     # strategy:
     #   matrix:
     #     # run 3 copies of the current job in parallel
@@ -27,9 +28,9 @@ jobs:
           browser: chrome
           parallel: true
           record: true
-          config: baseUrl=${{ vars.CYPRESS_BASE_URL }}
           ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
         env:
+          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass the Cypress Cloud record key as an environment variable
