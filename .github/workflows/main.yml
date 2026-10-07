@@ -1,5 +1,11 @@
 name: Cypress Parallel Tests
-on: push
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+permissions:
+  pull-requests: read  # Permissão crucial para corrigir o erro 403 (Resource not accessible by integration)
+  contents: read       # Geralmente necessária para fazer o checkout do código
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
@@ -24,7 +30,7 @@ jobs:
           record: true
           ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
         env:
-          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL}}
+          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass the Cypress Cloud record key as an environment variable
