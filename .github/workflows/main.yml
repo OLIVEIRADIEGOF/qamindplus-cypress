@@ -1,36 +1,34 @@
 name: Cypress Parallel Tests
-on: push
+
+on: [pull_request]
+permissions:
+  actions: read        # Necessário para corrigir o erro Resource not accessible by integration (actions/workflow-runs#get-a-workflow-run)
+  pull-requests: read  # Necessário para corrigir o erro 403 (Resource not accessible by integration)
+  contents: read       # Geralmente necessária para fazer o checkout do código
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
+    environment: Staging
     strategy:
+      fail-fast: false # Garante que se uma máquina falhar, as outras continuem executando seus testes
       matrix:
-        # run 3 copies of the current job in parallel
-        recording-job: [1, 2, 3]
-    container:
-      image: cypress/browsers:24.21.0
-      options: --user 1001
+        browser: [chrome, firefox] # Cria 2 instâncias idênticas deste job (uma para cada browser)
+        containers: [1, 2] # Cria 2 instâncias idênticas para cada browser, totalizando 4 containers (2 para Chrome e 2 para Firefox)
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
       - name: Cypress.io
         uses: cypress-io/github-action@v7.4.6
         with:
-          group: 'Chrome Tests'
-          browser: chrome
-          parallel: true
-          record: true
-          install: npm install start-server-and-test --save-dev
-          start: "my-server -p $EXPOSE_PORT"
-          runTests: "start-server-and-test start $CYPRESS_BASE_URL cypress run"
-          ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
+          group: 'Parallel Tests on ${{ matrix.browser }}'
+          browser: ${{ matrix.browser }}
+          parallel: true # Avisa ao Cypress para dividir a carga
+          record: true   # Obrigatório para o paralelismo funcionar via Cypress Cloud
+          ci-build-id: '${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.browser }}' # Incluímos o browser no ID para o Cypress separar as execuções corretamente
+          install-command: npm ci # Instala as dependências do projeto de forma extremamente rápida, segura.
+          build: "" # Desabilita a criação de build no Cypress Cloud, pois o build já é criado automaticamente pelo GitHub Actions
         env:
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
-          # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          # pass the Cypress Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # pass GitHub token to allow accurately detecting a build vs a re-run build
