@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-24.04
     environment: Staging
     strategy:
+      fail-fast: false # Garante que se uma máquina falhar, as outras continuem executando seus testes
       matrix:
-        # run 2 copies of the current job in parallel
-        recording-job: [1, 2]
+        # Cria 3 instâncias idênticas deste job (máquinas 1, 2 e 3)
+        containers: [1, 2, 3]
     container:
       image: cypress/browsers:24.21.0
       options: --user 1001
@@ -24,9 +25,9 @@ jobs:
         with:
           group: 'Chrome Tests'
           browser: chrome
-          parallel: true
-          record: true
-          ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
+          parallel: true # Avisa ao Cypress para dividir a carga
+          record: true   # Obrigatório para o paralelismo funcionar via Cypress Cloud
+          ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}' # O ID vincula os containers sob a mesma execução no painel do Cypress
         env:
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
