@@ -1,5 +1,7 @@
 import { defineConfig } from 'cypress'
 
+const BASE_URL = process.env.CYPRESS_BASE_URL || 'http://localhost:4200'
+
 export default defineConfig({
   projectId: 'uhh7cb',
   video: false,
@@ -12,6 +14,6 @@ export default defineConfig({
     featureFlag: true
   },
   e2e: {
-    baseUrl: 'http://localhost:4200',
+    baseUrl: BASE_URL,
   }
 })
