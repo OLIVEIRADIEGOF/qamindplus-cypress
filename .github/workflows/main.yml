@@ -26,7 +26,7 @@ jobs:
           record: true   # Obrigatório para o paralelismo funcionar via Cypress Cloud
           ci-build-id: '${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.browser }}' # Incluímos o browser no ID para o Cypress separar as execuções corretamente
           install-command: npm ci # Instala as dependências do projeto de forma extremamente rápida, segura.
-          build: false # Desabilita a criação de build no Cypress Cloud, pois o build já é criado automaticamente pelo GitHub Actions
+          build: "" # Desabilita a criação de build no Cypress Cloud, pois o build já é criado automaticamente pelo GitHub Actions
         env:
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
