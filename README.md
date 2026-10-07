@@ -34,7 +34,7 @@ cypress.config.ts
 tsconfig.json
 ```
 
-O spec `cypress/e2e/demo-dashboard.cy.ts` usa o fixture `cypress/fixtures/cards.json`. O tipo compartilhado `ChallengeCard` está em `cypress/types/challenge-card.ts`.
+Os specs atuais cobrem a página inicial (`welcome.cy.ts`) e o dashboard de demonstração (`demo-dashboard.cy.ts`). Eles usam os fixtures `services.json`, `links.json` e `cards.json`, com os tipos compartilhados correspondentes em `cypress/types/`.
 
 ## Conversão de JavaScript para TypeScript
 
@@ -79,30 +79,42 @@ Execute todos os specs em modo headless:
 npm run cy:run
 ```
 
+O comando acima executa no Chrome em modo headless. Para abrir o navegador durante a execução:
+
+```bash
+npm run cy:run:headed
+```
+
 Execute somente o spec do dashboard:
 
 ```bash
 npm run cy:run -- --spec cypress/e2e/demo-dashboard.cy.ts
 ```
 
-Também existem comandos para rodar no Chrome, Firefox ou Edge, desde que o navegador esteja instalado:
+Também existem comandos para abrir o Cypress ou executar os testes no Firefox e no Edge. Instale o navegador selecionado antes de usar o respectivo comando:
 
 ```bash
-npm run cy:run:chrome
+npm run cy:open
 npm run cy:run:firefox
 npm run cy:run:edge
 ```
 
-Os testes acessam o site remoto configurado em `cypress.config.ts`. Uma falha de rede ou indisponibilidade do site pode causar falhas mesmo que o código do teste esteja correto.
-
-Para executar os testes contra outro ambiente, defina `CYPRESS_BASE_URL` como a URL completa, incluindo protocolo e, se necessário, porta:
+`cy:open` e `cy:run` usam Chrome. Os comandos de execução podem receber opções do Cypress após `--`, por exemplo:
 
 ```bash
-CYPRESS_BASE_URL=https://staging.example.com npm test
-CYPRESS_BASE_URL=http://localhost:4200 npm test
+npm run cy:run -- --spec cypress/e2e/welcome.cy.ts
 ```
 
-No GitHub Actions, defina a variável `CYPRESS_BASE_URL` em **Settings → Secrets and variables → Actions → Variables**.
+O `baseUrl` vem de `CYPRESS_BASE_URL`, definido em `cypress.config.ts`. Informe a URL completa do ambiente que contém a aplicação, incluindo protocolo e, se necessário, porta:
+
+```bash
+CYPRESS_BASE_URL=https://staging.example.com npm run cy:run
+CYPRESS_BASE_URL=http://localhost:4200 npm run cy:run
+```
+
+O script `npm test` é uma alternativa para execução com `start-server-and-test`: ele tenta iniciar `my-server -p 4200`, aguarda a URL de `CYPRESS_BASE_URL` e então executa `cy:run`. O projeto não declara `my-server` como dependência nem inclui o servidor da aplicação; use esse script somente se esse comando estiver disponível e iniciar a aplicação na URL configurada.
+
+O GitHub Actions executa em pull requests, usando Chrome e Firefox com duas instâncias paralelas por navegador e Cypress Cloud. Configure `CYPRESS_BASE_URL` como variável no ambiente `Staging` e `CYPRESS_PROJECT_ID` e `CYPRESS_RECORD_KEY` como secrets. O paralelismo requer a gravação no Cypress Cloud.
 
 ## Padrões e boas práticas
 
