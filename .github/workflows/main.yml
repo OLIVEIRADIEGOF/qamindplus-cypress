@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false # Garante que se uma máquina falhar, as outras continuem executando seus testes
       matrix:
-        # Cria 3 instâncias idênticas deste job (máquinas 1, 2 e 3)
-        containers: [1, 2]
+        # containers: [1, 2] # Cria 3 instâncias idênticas deste job (máquinas 1, 2 e 3)
+        browser: [chrome, firefox] # Cria 2 instâncias idênticas deste job (uma para cada browser)
     container:
       image: cypress/browsers:24.21.0
       options: --user 1001
@@ -23,11 +23,13 @@ jobs:
       - name: Cypress.io
         uses: cypress-io/github-action@v7.4.6
         with:
-          group: 'Chrome Tests'
-          browser: chrome
+          group: 'Tests on ${{ matrix.browser }}'
+          browser: ${{ matrix.browser }}
+
           parallel: true # Avisa ao Cypress para dividir a carga
           record: true   # Obrigatório para o paralelismo funcionar via Cypress Cloud
-          ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}' # O ID vincula os containers sob a mesma execução no painel do Cypress
+          # ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}' # O ID vincula os containers sob a mesma execução no painel do Cypress
+          ci-build-id: '${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.browser }}' # Incluímos o browser no ID para o Cypress separar as execuções corretamente
         env:
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}

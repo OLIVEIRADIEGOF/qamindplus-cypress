@@ -14,6 +14,6 @@ export default defineConfig({
     featureFlag: true
   },
   e2e: {
-    baseUrl: BASE_URL,
+    baseUrl: BASE_URL
   }
 })
