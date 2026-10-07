@@ -1,6 +1,6 @@
 name: Cypress Parallel Tests
 
-on: [push, pull_request]
+on: [pull_request]
 permissions:
   actions: read        # Necessário para corrigir o erro Resource not accessible by integration (actions/workflow-runs#get-a-workflow-run)
   pull-requests: read  # Necessário para corrigir o erro 403 (Resource not accessible by integration)
@@ -27,9 +27,9 @@ jobs:
           browser: chrome
           parallel: true
           record: true
+          config: baseUrl=${{ vars.CYPRESS_BASE_URL }}
           ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}'
         env:
-          CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           # pass the Cypress Cloud project ID as an environment variable or store it in the Cypress configuration file
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass the Cypress Cloud record key as an environment variable
