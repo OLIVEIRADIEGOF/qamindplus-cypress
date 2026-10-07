@@ -13,7 +13,7 @@ jobs:
       fail-fast: false # Garante que se uma máquina falhar, as outras continuem executando seus testes
       matrix:
         # Cria 3 instâncias idênticas deste job (máquinas 1, 2 e 3)
-        containers: [1, 2, 3]
+        containers: [1, 2]
     container:
       image: cypress/browsers:24.21.0
       options: --user 1001
