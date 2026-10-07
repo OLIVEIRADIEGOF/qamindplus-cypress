@@ -14,9 +14,6 @@ jobs:
       matrix:
         browser: [chrome, firefox] # Cria 2 instâncias idênticas deste job (uma para cada browser)
         containers: [1, 2] # Cria 2 instâncias idênticas para cada browser, totalizando 4 containers (2 para Chrome e 2 para Firefox)
-    container:
-      image: cypress/browsers:24.21.0
-      options: --user 1001
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
@@ -25,14 +22,12 @@ jobs:
         with:
           group: 'Parallel Tests on ${{ matrix.browser }}'
           browser: ${{ matrix.browser }}
-
           parallel: true # Avisa ao Cypress para dividir a carga
           record: true   # Obrigatório para o paralelismo funcionar via Cypress Cloud
-          # ci-build-id: '${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}' # O ID vincula os containers sob a mesma execução no painel do Cypress
           ci-build-id: '${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.browser }}' # Incluímos o browser no ID para o Cypress separar as execuções corretamente
+          build: npm run build --if-present # Ativa o cache automático do node_modules e do binário do Cypress. Isso reduz drasticamente o tempo pós-inicialização
         env:
           CYPRESS_BASE_URL: ${{ vars.CYPRESS_BASE_URL }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # pass GitHub token to allow accurately detecting a build vs a re-run build
